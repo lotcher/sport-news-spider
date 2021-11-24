@@ -35,10 +35,6 @@ class Spider(ABC):
         return news
 
     @classmethod
-    def send(cls, news: News):
-        pass
-
-    @classmethod
     def session(cls) -> requests.Session:
         session = requests.Session()
         session.headers.update({

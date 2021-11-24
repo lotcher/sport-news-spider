@@ -1,3 +1,4 @@
+import json
 from dataclasses import dataclass, field
 from typing import List
 from hashlib import md5
@@ -17,3 +18,6 @@ class News:
         self.id = md5(self.title.encode()).hexdigest()
         self.timestamp = int(self.timestamp * 1000)
         self.time = Datetime.fromtimestamp(self.timestamp).str
+
+    def to_json(self):
+        return json.dumps(self.__dict__, ensure_ascii=False)
