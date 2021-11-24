@@ -1,10 +1,11 @@
+from typing import Iterator
 from abc import ABC, abstractmethod
 
 from src.entity import News
 
 
-class Sender(ABC):
+class Writer(ABC):
     @classmethod
     @abstractmethod
-    def send(cls, news: News):
+    def write(cls, news_collection: Iterator[News]):
         pass
