@@ -7,4 +7,4 @@ from spider import HupuSpider
 
 if __name__ == '__main__':
     newsCollection = HupuSpider.run()
-    print(newsCollection)
+    print(list(newsCollection))

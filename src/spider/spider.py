@@ -1,19 +1,23 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Generator
 
 import requests
+from bools.log import Logger
+from tqdm import tqdm
 
 from src.entity import News
 
 
 class Spider(ABC):
     @classmethod
-    def run(cls):
-        return [cls.update_news(news) for news in cls.crawl_articles()]
+    def run(cls) -> Generator[News, None, None]:
+        for url in tqdm(cls.crawl_urls(), ncols=100):
+            yield from [cls.update_news(news) for news in cls.crawl(url)]
+            cls.sleep()
 
     @classmethod
     @abstractmethod
-    def crawl_articles(cls) -> List[News]:
+    def crawl(cls, crawl_url: str) -> List[News]:
         pass
 
     @classmethod
@@ -36,3 +40,16 @@ class Spider(ABC):
     def sleep(cls):
         import time
         time.sleep(1)
+
+    @classmethod
+    def get(cls, url) -> requests.Response:
+        res = cls.session().get(url)
+        if res.status_code != 200:
+            Logger.error(f'请求{url}失败，返回信息为：{res.text}')
+        else:
+            return res
+
+    @classmethod
+    @abstractmethod
+    def crawl_urls(cls) -> List[str]:
+        pass
