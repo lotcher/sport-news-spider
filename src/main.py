@@ -3,8 +3,8 @@ from os import path
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
-from spider import HupuSpider
+from spider import HupuInfoSpider, HupuNBASpider
 
 if __name__ == '__main__':
-    newsCollection = HupuSpider.run()
-    print(list(newsCollection))
+    for spider in [HupuNBASpider, HupuInfoSpider]:
+        print(list(spider.run()))

@@ -3,6 +3,7 @@ from typing import List, Generator
 
 import requests
 from bools.log import Logger
+from bools.functools import catch
 from tqdm import tqdm
 
 from src.entity import News
@@ -11,13 +12,22 @@ from src.entity import News
 class Spider(ABC):
     @classmethod
     def run(cls) -> Generator[News, None, None]:
-        for url in tqdm(cls.crawl_urls(), ncols=100):
-            yield from [cls.update_news(news) for news in cls.crawl(url)]
+        for url in cls.crawl_urls():
+            yield from [cls.update_news(news) for news in tqdm(cls.crawl(url), ncols=100)]
             cls.sleep()
 
     @classmethod
-    @abstractmethod
     def crawl(cls, crawl_url: str) -> List[News]:
+        Logger.info(f'开始爬取{crawl_url}...')
+        return catch(
+            lambda: cls._crawl(crawl_url),
+            log=f'解析【{crawl_url}】失败，检查网页是否正常返回或解析规则是否有错误',
+            except_return=[]
+        )()
+
+    @classmethod
+    @abstractmethod
+    def _crawl(cls, crawl_url: str) -> List[News]:
         pass
 
     @classmethod

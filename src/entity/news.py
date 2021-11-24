@@ -15,4 +15,5 @@ class News:
 
     def __post_init__(self):
         self.id = md5(self.title.encode()).hexdigest()
-        self.time = Datetime.fromtimestamp(self.timestamp)
+        self.timestamp = int(self.timestamp * 1000)
+        self.time = Datetime.fromtimestamp(self.timestamp).str
