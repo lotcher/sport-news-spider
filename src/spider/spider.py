@@ -18,7 +18,7 @@ class Spider(ABC):
 
     @classmethod
     def crawl(cls, crawl_url: str) -> List[News]:
-        Logger.info(f'开始爬取{crawl_url}...')
+        Logger.info(f'开始爬取[{crawl_url}]...')
         return catch(
             lambda: cls._crawl(crawl_url),
             log=f'解析【{crawl_url}】失败，检查网页是否正常返回或解析规则是否有错误',
