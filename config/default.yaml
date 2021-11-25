@@ -2,6 +2,5 @@ writers:
   kafka:
     bootstrap_servers: 127.0.0.1:9092
     topic: test
-
   file:
     path: ../sport-news.json
