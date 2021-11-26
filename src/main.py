@@ -1,4 +1,5 @@
 import sys
+import time
 from os import path
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
@@ -10,7 +11,8 @@ from src.config import CLI
 if __name__ == '__main__':
     CLI.init()
     writers = WriterFactory.generate()
-
-    for spider in [HupuNBASpider, HupuInfoSpider, TencentSpider]:
-        news_collection = list(spider.run())
-        [writer.write(news_collection) for writer in writers]
+    while True:
+        for spider in [HupuNBASpider, HupuInfoSpider, TencentSpider]:
+            news_collection = list(spider.run())
+            [writer.write(news_collection) for writer in writers]
+        time.sleep(1800)
