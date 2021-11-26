@@ -27,7 +27,7 @@ class TencentSpider(Spider):
         return News(
             news.title, news.url,
             timestamp=Datetime.from_str(times[0]).timestamp() if times else 0,
-            content='\n'.join([p.strip() for p in contents if p.strip()]),
+            contents=[p.strip() for p in contents if p.strip()],
             img_urls=[f'https:{url}' for url in img_urls]
         )
 

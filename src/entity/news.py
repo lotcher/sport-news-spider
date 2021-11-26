@@ -11,7 +11,7 @@ class News:
     title: str
     url: str
     timestamp: int = 0
-    content: str = ''
+    contents: List[str] = field(default_factory=list)
     img_urls: List[str] = field(default_factory=list)
 
     def __post_init__(self):

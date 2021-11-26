@@ -19,7 +19,7 @@ class HupuSpider(Spider, ABC):
         return News(
             news.title, news.url,
             timestamp=Datetime.from_str(times[0]).timestamp() if times else 0,
-            content='\n'.join([p.strip() for p in contents if p.strip()]), img_urls=img_urls
+            contents=[p.strip() for p in contents if p.strip()], img_urls=img_urls
         )
 
 
