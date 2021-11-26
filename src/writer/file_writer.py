@@ -12,4 +12,4 @@ class FileWriter(Writer):
 
     def _write(self, news_collection: Iterator[News]):
         with open(self.path, 'a', encoding='utf-8') as f:
-            f.write('\n'.join([news.to_json() for news in news_collection]))
+            f.write('\n'.join([news.to_json() for news in news_collection]) + '\n')
