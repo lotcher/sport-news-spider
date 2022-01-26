@@ -13,6 +13,7 @@ class News:
     timestamp: int = 0
     contents: List[str] = field(default_factory=list)
     img_urls: List[str] = field(default_factory=list)
+    source: str = ''
 
     def __post_init__(self):
         self.id = md5(self.title.encode()).hexdigest()

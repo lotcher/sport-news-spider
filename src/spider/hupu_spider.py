@@ -9,6 +9,8 @@ from lxml import etree
 
 
 class HupuSpider(Spider, ABC):
+    source = '虎扑'
+
     @classmethod
     def update_news(cls, news: News) -> News:
         article = cls.session().get(news.url).text
@@ -17,7 +19,7 @@ class HupuSpider(Spider, ABC):
         times = tree.xpath('//span[@class="post-user-comp-info-top-time"]/text()')
         img_urls = tree.xpath('//div[@class="main-post-info"]//div[@class="thread-content-detail"]//img/@src')
         return News(
-            news.title, news.url,
+            news.title, news.url, source=cls.source,
             timestamp=Datetime.from_str(times[0]).timestamp() if times else 0,
             contents=[p.strip() for p in contents if p.strip()], img_urls=img_urls
         )
@@ -50,7 +52,9 @@ class HupuNBASpider(HupuSpider):
     def _crawl(cls, crawl_url: str) -> List[News]:
         res = cls.get(crawl_url)
         return [
-            News(title=''.join(item.xpath('div/div/h3/text()')),
-                 url=f'https://bbs.hupu.com/{item.get("href").split("/")[-1]}')
+            News(
+                title=''.join(item.xpath('div/div/h3/text()')),
+                url=f'https://bbs.hupu.com/{item.get("href").split("/")[-1]}',
+            )
             for item in etree.HTML(res.text).xpath("//a[@class='news-link']")
         ]

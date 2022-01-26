@@ -10,6 +10,8 @@ from src.entity import News
 
 
 class Spider(ABC):
+    source = ''
+
     @classmethod
     def run(cls) -> Generator[News, None, None]:
         for url in cls.crawl_urls():

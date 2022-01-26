@@ -9,6 +9,8 @@ from ..entity import News
 
 
 class TencentSpider(Spider):
+    source = '腾讯'
+
     @classmethod
     def _crawl(cls, crawl_url: str) -> List[News]:
         res = cls.get('https://sports.qq.com/nba/')
@@ -25,7 +27,7 @@ class TencentSpider(Spider):
         times = re.findall('pubtime\".*?\"(.*?)\"', res.text)
         img_urls = tree.xpath('//div[@class="content-article"]/p/img/@src')
         return News(
-            news.title, news.url,
+            news.title, news.url, source=cls.source,
             timestamp=Datetime.from_str(times[0]).timestamp() if times else 0,
             contents=[p.strip() for p in contents if p.strip()],
             img_urls=[f'https:{url}' for url in img_urls]
