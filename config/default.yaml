@@ -4,3 +4,6 @@ writers:
     topic: test
   file:
     path: ../sport-news.json
+  es:
+    url: http://localhost:9200 # 支持http basic认证，例如http://elastic:elastic@localhost:9200
+    index: sport-news

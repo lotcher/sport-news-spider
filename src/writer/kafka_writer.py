@@ -11,12 +11,11 @@ class KafkaWriter(Writer):
     topic: str = 'sport-news'
 
     def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.producer = KafkaProducer(**{
             k: kwargs.get(k, default)
             for k, default in KafkaProducer.DEFAULT_CONFIG.items()
         })
-        for k, v in kwargs.items():
-            setattr(self, k, v)
 
     def _write(self, news_collection: Iterator[News]):
         for news in news_collection:

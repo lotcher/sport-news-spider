@@ -12,7 +12,7 @@ if __name__ == '__main__':
     CLI.init()
     writers = WriterFactory.generate()
     while True:
-        for spider in [HupuNBASpider, HupuInfoSpider, TencentSpider]:
+        for spider in [HupuNBASpider]:
             news_collection = list(spider.run())
             [writer.write(news_collection) for writer in writers]
         time.sleep(1800)

@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Iterator
 from abc import ABC, abstractmethod
 
@@ -7,6 +8,10 @@ from src.entity import News
 
 
 class Writer(ABC):
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
     def write(self, news_collection: Iterator[News]):
         Logger.info(f'通过{self}写入数据中...')
         self._write(news_collection)
