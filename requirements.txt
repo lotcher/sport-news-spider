@@ -1,6 +1,6 @@
 tqdm>=4.60.0
 kafka_python>=2.0.2
-bools>=0.4.2.8
+bools>=0.4.3.0
 lxml>=4.6.3
 requests>=2.25.1
 dataclasses>=0.8

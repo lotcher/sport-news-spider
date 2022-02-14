@@ -18,7 +18,7 @@ class News:
     def __post_init__(self):
         self.id = md5(self.title.encode()).hexdigest()
         self.timestamp = int(self.timestamp * 1000)
-        self.time = Datetime.fromtimestamp(self.timestamp).str
+        self.time = Datetime.fromtimestamp(self.timestamp, precision='ms').str
 
     def to_json(self):
         return json.dumps(self.__dict__, ensure_ascii=False)
