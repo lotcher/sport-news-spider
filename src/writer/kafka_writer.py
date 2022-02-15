@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import List
 from dataclasses import dataclass
 from .writer import Writer
 from ..entity import News
@@ -17,6 +17,6 @@ class KafkaWriter(Writer):
             for k, default in KafkaProducer.DEFAULT_CONFIG.items()
         })
 
-    def _write(self, news_collection: Iterator[News]):
+    def _write(self, news_collection: List[News]):
         for news in news_collection:
             self.producer.send(topic=self.topic, value=news.to_json().encode('utf-8'))

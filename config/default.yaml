@@ -7,3 +7,4 @@ writers:
   es:
     url: http://localhost:9200 # 支持http basic认证，例如http://elastic:elastic@localhost:9200
     index: sport-news
+    id_field: id # 写入es中映射为id的字段，默认为”id“

@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import List
 from dataclasses import dataclass
 
 from .writer import Writer
@@ -10,6 +10,6 @@ from src.config import BASE_DIR
 class FileWriter(Writer):
     path: str = f'{BASE_DIR}/sport-news.json'
 
-    def _write(self, news_collection: Iterator[News]):
+    def _write(self, news_collection: List[News]):
         with open(self.path, 'a', encoding='utf-8') as f:
             f.write('\n'.join([news.to_json() for news in news_collection]) + '\n')

@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-from typing import Iterator
+from typing import List
 from abc import ABC, abstractmethod
 
 from bools.log import Logger
@@ -12,11 +11,12 @@ class Writer(ABC):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    def write(self, news_collection: Iterator[News]):
+    def write(self, news_collection: List[News]):
         Logger.info(f'通过{self}写入数据中...')
-        self._write(news_collection)
+        if len(news_collection) > 0:
+            self._write(news_collection)
         Logger.info(f'通过{self}写入数据完成')
 
     @abstractmethod
-    def _write(self, news_collection: Iterator[News]):
+    def _write(self, news_collection: List[News]):
         pass
