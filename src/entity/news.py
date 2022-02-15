@@ -16,7 +16,7 @@ class News:
     source: str = ''
 
     def __post_init__(self):
-        self.id = md5(self.title.encode()).hexdigest()
+        self.id = md5(self.url.encode()).hexdigest()
         self.timestamp = int(self.timestamp * 1000)
         self.time = Datetime.fromtimestamp(self.timestamp, precision='ms').str
 
