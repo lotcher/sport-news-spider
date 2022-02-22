@@ -34,6 +34,7 @@ class Spider(ABC):
 
     @classmethod
     def update_news(cls, news: News) -> News:
+        news.source = cls.source
         return news
 
     @classmethod
